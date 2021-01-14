@@ -47,6 +47,93 @@ public class Hangman {
     	    i++;
     	    break;
         } 
+         
+          if (){  
+            
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      ");
+	    System.out.println("|      ");
+	    System.out.println("|      ");
+	    System.out.println("|     ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
+          else if (){  
+            
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      |");
+	    System.out.println("|      O");
+	    System.out.println("|      ");
+	    System.out.println("|      ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
+        }
+          else if (){  
+            
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      |");
+	    System.out.println("|      O");
+	    System.out.println("|      | ");
+	    System.out.println("|      ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
+
+          else if (){  
+            
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      |");
+	    System.out.println("|      O");
+	    System.out.println("|     /| ");
+	    System.out.println("|      ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
+          else if (){  
+            
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      |");
+	    System.out.println("|      O");
+	    System.out.println("|     /|\\ ");
+	    System.out.println("|      ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
+          else if (){  
+            
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      |");
+	    System.out.println("|      O");
+	    System.out.println("|     /|\\ ");
+	    System.out.println("|     /  ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
+          else if (){  
+            System.out.println("GAME OVER!");
+	    System.out.println("   ");
+            System.out.println();
+	    System.out.println("+------+ ");
+	    System.out.println("|      |");
+	    System.out.println("|      O");
+	    System.out.println("|     /|\\ ");
+	    System.out.println("|     / \\ ");
+	    System.out.println("|        ");
+	    System.out.println("|        ");
+        }
       }
     }
   }
