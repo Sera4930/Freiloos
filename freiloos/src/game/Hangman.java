@@ -17,7 +17,7 @@ public class Hangman {
 	}
   
     public static String aufdeckenVerdecktesWort(String eingabe, String ausgewaehltesWort) {
-		String verdecktesWort = "";
+		String verdecktesWort = erstelleVerdecktesWort(ausgewaehltesWort);
 		for (int i = 0; i < ausgewaehltesWort.length(); i++ ) {
 			if (eingabe.equalsIgnoreCase(ausgewaehltesWort.substring(i, i + 1))) {
 				verdecktesWort = verdecktesWort + " " + eingabe + " ";
@@ -29,7 +29,7 @@ public class Hangman {
 		return verdecktesWort;
 	}
 
-    public static boolean raten(String eingabe, String ausgewaehltesWort) {
+    static boolean raten(String eingabe, String ausgewaehltesWort) {
     	for (int i = 0; i < ausgewaehltesWort.length(); i++) {
 			if (eingabe.equalsIgnoreCase(ausgewaehltesWort.substring(i, i + 1)))
 				return true;
@@ -118,7 +118,7 @@ public class Hangman {
       }
     }
 
-    static void willkommensNachricht() {
+    static void willkommensNachricht(String ausgewaehltesWort) {
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
@@ -127,6 +127,7 @@ public class Hangman {
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *\n");
         System.out.println("Bitte einen Buchstaben oder das zuerratene Wort eingeben!\n");
+        System.out.println(erstelleVerdecktesWort(ausgewaehltesWort) + "\n");
     }
     
     static void trennNachricht() {
@@ -144,34 +145,24 @@ public class Hangman {
     
     
     public static void main(String[] args) {
+      Random rnd = new Random();
+      String ausgewaehltesWort = QUIZWOERTER[rnd.nextInt(QUIZWOERTER.length)];
+      willkommensNachricht(ausgewaehltesWort);
+      Scanner in = new Scanner(System.in);
+      String eingabe = in.next();
+      String wortAufdecken = "";
 
-    Random rnd = new Random();
-    int zufaelligeWortauswahl = rnd.nextInt(QUIZWOERTER.length);
-    String ausgewaehltesWort = QUIZWOERTER[zufaelligeWortauswahl];
-    
-    willkommensNachricht();
-    System.out.println(erstelleVerdecktesWort(ausgewaehltesWort) + "\n");
-    Scanner in = new Scanner(System.in);
-    String eingabe = in.next();
-    String wortAufdecken = "";
-
-    int anzahlVersuche = 0;
-      while (anzahlVersuche < 7) {
+      for (int anzahlVersuche = 0; anzahlVersuche < 7;) {
         if (eingabe.equalsIgnoreCase(ausgewaehltesWort)) {
-        	gewinnNachricht(ausgewaehltesWort);
-        	in.close();
-        	System.exit(0);
-        }
-        else if (eingabe.length() != 1) {
-          System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
-          eingabe = in.next();
-        } else if (raten(eingabe, ausgewaehltesWort) == true) {
-        	  trennNachricht();
-        	  System.out.println("Der Buchstabe " + eingabe + " ist dabei.\n");
-        	  wortAufdecken = "";
-        	  
-        	  System.out.println(aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort));
-        	  eingabe = in.next();
+      	  gewinnNachricht(ausgewaehltesWort);
+          in.close();
+          System.exit(0);
+        } else if (eingabe.length() == 1 && raten(eingabe, ausgewaehltesWort) == true) {
+            trennNachricht();
+            System.out.println("Der Buchstabe " + eingabe + " ist dabei.\n");
+            wortAufdecken = "";
+            System.out.println(aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort));
+            eingabe = in.next();
         }
         else {
           anzahlVersuche++;
@@ -183,12 +174,12 @@ public class Hangman {
           else {
           trennNachricht();
           hangmanFigur(anzahlVersuche);
-          System.out.println("\nLeider falsch! Der Buchstabe " + eingabe + " war nicht dabei.  Naechster Vesuch:");
+          System.out.println("\nLeider falsch! Die Eingabe " + eingabe + " war falsch.  Naechster Vesuch:");
           eingabe = in.next();
-          System.out.println(ausgewaehltesWort); //nur zum testen
           }
         }
       }
     }
+
 }
 
