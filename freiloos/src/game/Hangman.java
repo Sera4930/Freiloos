@@ -134,6 +134,15 @@ public class Hangman {
     	System.out.println("* * * * * * * * * * * * * * * * *\n");
     }
     
+    static void gewinnNachricht(String ausgewaehltesWort) {
+    	trennNachricht();
+    	trennNachricht();
+    	System.out.println("Super!! Richtig erraten das Wort lautete: " + ausgewaehltesWort);
+    	trennNachricht();
+    	trennNachricht();
+    }
+    
+    
     public static void main(String[] args) {
 
     Random rnd = new Random();
@@ -144,15 +153,12 @@ public class Hangman {
     System.out.println(erstelleVerdecktesWort(ausgewaehltesWort) + "\n");
     Scanner in = new Scanner(System.in);
     String eingabe = in.next();
+    String wortAufdecken = "";
 
     int anzahlVersuche = 0;
       while (anzahlVersuche < 7) {
         if (eingabe.equalsIgnoreCase(ausgewaehltesWort)) {
-        	trennNachricht();
-        	trennNachricht();
-        	System.out.println("Super!! Richtig erraten das Wort lautete: " + ausgewaehltesWort);
-        	trennNachricht();
-        	trennNachricht();
+        	gewinnNachricht(ausgewaehltesWort);
         	in.close();
         	System.exit(0);
         }
@@ -162,6 +168,8 @@ public class Hangman {
         } else if (raten(eingabe, ausgewaehltesWort) == true) {
         	  trennNachricht();
         	  System.out.println("Der Buchstabe " + eingabe + " ist dabei.\n");
+        	  wortAufdecken = "";
+        	  
         	  System.out.println(aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort));
         	  eingabe = in.next();
         }
