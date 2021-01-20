@@ -148,7 +148,10 @@ public class Hangman {
 
     int anzahlVersuche = 0;
       while (anzahlVersuche < 7) {
-        if (eingabe.equalsIgnoreCase(ausgewaehltesWort) || eingabe.length() == 1) {
+        if (eingabe.equalsIgnoreCase(ausgewaehltesWort)) {
+        	System.out.println("Super!! Richtig erraten das Wort lautete:" + ausgewaehltesWort);
+        }
+        else if (eingabe.length() != 1) {
           System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
           eingabe = in.next();
         } else {
