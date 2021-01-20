@@ -5,9 +5,9 @@ import java.util.Random;
 // Hangman Projekt von Dawid Voronov und Alexander Girin || AI1001
 
 public class Hangman {
-  static final String[] WOERTER = {"Tokio", "Hamburg", "Kryptographie", "Ninja"};
+  static final String[] WOERTER = {"Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet", "Netzpolitik", "Telekommunikationsgesetz", "Lokomotive"};
 
-  public static boolean istGueltig (String eingabe) { //checken ob gueltiger buchstabe noch hinzufuegen
+  public static boolean istGueltig (String eingabe) { //TODO checken ob gueltiger buchstabe noch hinzufuegen
     if (eingabe.length() != 1) {
     	return false;
     }
