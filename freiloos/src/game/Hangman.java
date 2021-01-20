@@ -9,13 +9,6 @@ public class Hangman {
 	static final String[] QUIZWOERTER = { "Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet",
 			"Netzpolitik", "Telekommunikationsgesetz", "Lokomotive" };
 
-	public static boolean istGueltig(String eingabe) { // TODO checken ob gueltiger buchstabe noch hinzufuegen
-		if (eingabe.length() != 1) {
-			return false;
-		}
-		return true;
-	}
-
     public static String erstelleVerdecktesWort(String ausgewaehltesWort) {
 		String unterstriche = "";
 		for (int i = 0; i < ausgewaehltesWort.length(); i++) {
@@ -155,7 +148,7 @@ public class Hangman {
 
     int anzahlVersuche = 0;
       while (anzahlVersuche < 7) {
-        if (eingabe.equalsIgnoreCase(ausgewaehltesWort) || !istGueltig(eingabe)) {
+        if (eingabe.equalsIgnoreCase(ausgewaehltesWort) || eingabe.length() == 1) {
           System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
           eingabe = in.next();
         } else {
