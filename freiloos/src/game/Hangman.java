@@ -45,37 +45,129 @@ public class Hangman {
 		return false;
 	}
 
+    public static void hangmanFigur(int auswahl) { //Quelle der Figur: https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c  
+        if (auswahl == 1){        
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      ");
+          System.out.println("|      ");
+          System.out.println("|      ");
+          System.out.println("|     ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+        }
+        else if (auswahl == 2){         
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      |");
+          System.out.println("|      O");
+          System.out.println("|      ");
+          System.out.println("|      ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+        }
+        else if (auswahl == 3){           
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      |");
+          System.out.println("|      O");
+          System.out.println("|      | ");
+          System.out.println("|      ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+        }
+        else if (auswahl == 4){          
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      |");
+          System.out.println("|      O");
+          System.out.println("|     /| ");
+          System.out.println("|      ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+        }
+        else if (auswahl == 5){         
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      |");
+          System.out.println("|      O");
+          System.out.println("|     /|\\ ");
+          System.out.println("|      ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+        }
+        else if (auswahl == 6){          
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      |");
+          System.out.println("|      O");
+          System.out.println("|     /|\\ ");
+          System.out.println("|     /  ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+        }
+        else if (auswahl == 7){  
+          System.out.println("GAME OVER!");
+          System.out.println("   ");
+          System.out.println();
+          System.out.println("+------+ ");
+          System.out.println("|      |");
+          System.out.println("|      O");
+          System.out.println("|     /|\\ ");
+          System.out.println("|     / \\ ");
+          System.out.println("|        ");
+          System.out.println("|        ");
+      }
+    }
 
-	
-
+    public static void willkommensNachricht() {
+        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("* * * Willkommen zu Hangman * * *");
+        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("Bitte einen Buchstaben eingeben, um das folgende Wort zu erraten!\n");
+    }
+    
+    
     public static void main(String[] args) {
 
     Random rnd = new Random();
     int zufaelligeWortauswahl = rnd.nextInt(QUIZWOERTER.length);
     String ausgewaehltesWort = QUIZWOERTER[zufaelligeWortauswahl];
     
-    System.out.println("* * * * * * * * * * * * * * * * *");
-    System.out.println("* * * * * * * * * * * * * * * * *");
-    System.out.println("* * * * * * * * * * * * * * * * *");
-    System.out.println("* * * Willkommen zu Hangman * * *");
-    System.out.println("* * * * * * * * * * * * * * * * *");
-    System.out.println("* * * * * * * * * * * * * * * * *");
-    System.out.println("* * * * * * * * * * * * * * * * *");
-    System.out.println("Bitte einen Buchstaben eingeben, um das folgende Wort zu erraten!\n");
+    willkommensNachricht();
     System.out.println(erstelleVerdecktesWort(ausgewaehltesWort));
     Scanner in = new Scanner(System.in);
     String eingabe = in.next();
 
       for (int i = 0; i < ausgewaehltesWort.length(); ) {
-        while (true) {
+        int anzahlVersuche = 0;
+    	while (anzahlVersuche < 7) {
           if (!istGueltig(eingabe)) {
             System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
             eingabe = in.next();
           } else {
-        	  System.out.println(raten(eingabe, ausgewaehltesWort)); //nur zum testen
         	  if (raten(eingabe, ausgewaehltesWort)==true) {
         		  aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort);
         	  }
+        	  else {
+        	  anzahlVersuche++;
+        	  hangmanFigur(anzahlVersuche);
+        	  
+
+        	  
+        	  System.out.println(raten(eingabe, ausgewaehltesWort)); //nur zum testen
+        	  }
+        	  
         	  System.out.println(ausgewaehltesWort); //nur zum testen
     	      i++;
     	      eingabe = in.next();
@@ -84,86 +176,5 @@ public class Hangman {
         }
       }
     }
-   
-    public static void hangmanFigur(int auswahl) { //Quelle der Figur: https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c  
-      if (auswahl == 1){        
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      ");
-        System.out.println("|      ");
-        System.out.println("|      ");
-        System.out.println("|     ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-      }
-      else if (auswahl == 2){         
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      |");
-        System.out.println("|      O");
-        System.out.println("|      ");
-        System.out.println("|      ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-      }
-      else if (auswahl == 3){           
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      |");
-        System.out.println("|      O");
-        System.out.println("|      | ");
-        System.out.println("|      ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-      }
-      else if (auswahl == 4){          
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      |");
-        System.out.println("|      O");
-        System.out.println("|     /| ");
-        System.out.println("|      ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-      }
-      else if (auswahl == 5){         
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      |");
-        System.out.println("|      O");
-        System.out.println("|     /|\\ ");
-        System.out.println("|      ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-      }
-      else if (auswahl == 6){          
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      |");
-        System.out.println("|      O");
-        System.out.println("|     /|\\ ");
-        System.out.println("|     /  ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-      }
-      else if (auswahl == 7){  
-        System.out.println("GAME OVER!");
-        System.out.println("   ");
-        System.out.println();
-        System.out.println("+------+ ");
-        System.out.println("|      |");
-        System.out.println("|      O");
-        System.out.println("|     /|\\ ");
-        System.out.println("|     / \\ ");
-        System.out.println("|        ");
-        System.out.println("|        ");
-    }
-  }
 }
 
