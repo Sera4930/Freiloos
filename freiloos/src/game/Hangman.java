@@ -27,8 +27,8 @@ public class Hangman {
     public static String aufdeckenVerdecktesWort(String eingabe, String ausgewaehltesWort) {
 		String verdecktesWort = "";
 		for (int i = 0; i < ausgewaehltesWort.length(); i++) {
-			if (eingabe.equals(ausgewaehltesWort.substring(i,i+1))) {
-				verdecktesWort = verdecktesWort + eingabe;
+			if (eingabe.equalsIgnoreCase(ausgewaehltesWort.substring(i,i+1))) {
+				verdecktesWort = verdecktesWort + " " + eingabe + " ";
 			}
 			else {
 				verdecktesWort = verdecktesWort + "___ ";
@@ -39,13 +39,13 @@ public class Hangman {
 
     public static boolean raten(String eingabe, String ausgewaehltesWort) {
     	for (int i = 0; i < ausgewaehltesWort.length(); i++) {
-			if (eingabe.equals(ausgewaehltesWort.substring(i, i + 1)))
+			if (eingabe.equalsIgnoreCase(ausgewaehltesWort.substring(i, i + 1)))
 				return true;
 		}
 		return false;
 	}
 
-    public static void hangmanFigur(int auswahl) { //Quelle der Figur: https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c  
+    static void hangmanFigur(int auswahl) { //Quelle der Figur: https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c  
         if (auswahl == 1){        
           System.out.println("   ");
           System.out.println();
@@ -126,17 +126,21 @@ public class Hangman {
       }
     }
 
-    public static void willkommensNachricht() {
+    static void willkommensNachricht() {
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * Willkommen zu Hangman * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
-        System.out.println("* * * * * * * * * * * * * * * * *");
+        System.out.println("* * * * * * * * * * * * * * * * *\n");
         System.out.println("Bitte einen Buchstaben eingeben, um das folgende Wort zu erraten!\n");
     }
     
+    static void trennNachricht() {
+    	System.out.println("\n* * * * * * * * * * * * * * * * *");
+    	System.out.println("* * * * * * * * * * * * * * * * *\n");
+    }
     
     public static void main(String[] args) {
 
@@ -145,33 +149,32 @@ public class Hangman {
     String ausgewaehltesWort = QUIZWOERTER[zufaelligeWortauswahl];
     
     willkommensNachricht();
-    System.out.println(erstelleVerdecktesWort(ausgewaehltesWort));
+    System.out.println(erstelleVerdecktesWort(ausgewaehltesWort)+"\n");
     Scanner in = new Scanner(System.in);
     String eingabe = in.next();
 
-      for (int i = 0; i < ausgewaehltesWort.length(); ) {
-        int anzahlVersuche = 0;
-    	while (anzahlVersuche < 7) {
-          if (!istGueltig(eingabe)) {
-            System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
+    int anzahlVersuche = 0;
+      while (anzahlVersuche < 7) {
+        if (eingabe.equalsIgnoreCase(ausgewaehltesWort) || !istGueltig(eingabe)) {
+          System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
+          eingabe = in.next();
+        } else {
+          if (raten(eingabe, ausgewaehltesWort)==true) {
+        	  trennNachricht();
+        	  System.out.println(aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort));
+        	  eingabe = in.next();
+          }
+          else {
+            anzahlVersuche++;
+            if (anzahlVersuche == 7) {
+              hangmanFigur(anzahlVersuche);
+              break;
+            }
+            trennNachricht();
+            hangmanFigur(anzahlVersuche);
+            System.out.println("Leider falsch! Bitte Buchstaben eingeben.");
             eingabe = in.next();
-          } else {
-        	  if (raten(eingabe, ausgewaehltesWort)==true) {
-        		  aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort);
-        	  }
-        	  else {
-        	  anzahlVersuche++;
-        	  hangmanFigur(anzahlVersuche);
-        	  
-
-        	  
-        	  System.out.println(raten(eingabe, ausgewaehltesWort)); //nur zum testen
-        	  }
-        	  
-        	  System.out.println(ausgewaehltesWort); //nur zum testen
-    	      i++;
-    	      eingabe = in.next();
-    	      break;
+            System.out.println(ausgewaehltesWort); //nur zum testen
           }
         }
       }
