@@ -149,14 +149,20 @@ public class Hangman {
     int anzahlVersuche = 0;
       while (anzahlVersuche < 7) {
         if (eingabe.equalsIgnoreCase(ausgewaehltesWort)) {
-        	System.out.println("Super!! Richtig erraten das Wort lautete:" + ausgewaehltesWort);
+        	trennNachricht();
+        	trennNachricht();
+        	System.out.println("Super!! Richtig erraten das Wort lautete: " + ausgewaehltesWort);
+        	trennNachricht();
+        	trennNachricht();  
+        	in.close();
+        	System.exit(0);
         }
         else if (eingabe.length() != 1) {
           System.out.println("Ungueltige Eingabe. Bitte nur einen Buchstaben eingeben!\n");
           eingabe = in.next();
-        } else {
-          if (raten(eingabe, ausgewaehltesWort)==true) {
+        } else if (raten(eingabe, ausgewaehltesWort)==true) {
         	  trennNachricht();
+        	  System.out.println("Der Buchstabe " + eingabe + " ist dabei.");
         	  System.out.println(aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort));
         	  eingabe = in.next();
           }
@@ -164,14 +170,14 @@ public class Hangman {
             anzahlVersuche++;
             if (anzahlVersuche == 7) {
               hangmanFigur(anzahlVersuche);
-              break;
+              in.close();
+              System.exit(0);
             }
             trennNachricht();
             hangmanFigur(anzahlVersuche);
             System.out.println("Leider falsch! Bitte Buchstaben eingeben.");
             eingabe = in.next();
             System.out.println(ausgewaehltesWort); //nur zum testen
-          }
         }
       }
     }
