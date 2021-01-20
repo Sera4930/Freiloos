@@ -49,7 +49,6 @@ public class Hangman {
     	    System.out.println(ausgewaehltesWort); //nur zum testen
     	    i++;
     	    break;
-<<<<<<< HEAD
         } 
          
           if (){  
@@ -137,8 +136,6 @@ public class Hangman {
 	    System.out.println("|     / \\ ");
 	    System.out.println("|        ");
 	    System.out.println("|        ");
-=======
->>>>>>> 4bcf6c81d7764d1a0e7a1de3ad2d280be4158a41
         }
       }
     }
