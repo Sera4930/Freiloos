@@ -3,35 +3,50 @@ package game;
 import java.util.Scanner;
 import java.util.Random;
 
-// Hangman Projekt von Dawid Voronov und Alexander Girin || AI1001
+/**
+* Our project Hangman is based on the well known game Hangman.
+* you need to guess the hidden word that is shown upon initialization of the code to win.
+* @version 1.0 Build Jan 23, 2021.
+* @author Dawid Voronov, Alexander Girin || AI1001
+*/
 
 public class Hangman {
-    static final String[] QUIZWOERTER = { "Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet", "Netzpolitik", "Telekommunikationsgesetz", "Lokomotive"};
+    private static final String[] QUIZWOERTER = { "Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet", "Netzpolitik", "Telekommunikationsgesetz", "Lokomotive"};
+    private static final String QUIZWORT = QUIZWOERTER[new Random().nextInt(QUIZWOERTER.length)];
 
-    public static String erstelleVerdecktesWort(String ausgewaehltesWort) {
+    
+    public static String erstelleVerdecktesWort() {
 		String unterstriche = "";
-		for (int i = 0; i < ausgewaehltesWort.length(); i++) {
-			unterstriche = unterstriche + "___ ";
+		for (int i = 0; i < QUIZWORT.length(); i++) {
+			unterstriche = unterstriche + "_ ";
 		}
 		return unterstriche;
 	}
   
-    public static String aufdeckenVerdecktesWort(String eingabe, String ausgewaehltesWort) {
-		String verdecktesWort = erstelleVerdecktesWort(ausgewaehltesWort);
-		for (int i = 0; i < ausgewaehltesWort.length(); i++ ) {
-			if (eingabe.equalsIgnoreCase(ausgewaehltesWort.substring(i, i + 1))) {
-				verdecktesWort = verdecktesWort + " " + eingabe + " ";
-			}
-			else {
-				verdecktesWort = verdecktesWort + "___ ";
-			}
-		}
-		return verdecktesWort;
-	}
+    public static String aufdeckenVerdecktesWort(String eingabe, String quizstand) {
+      String neuerQuizstand = "";
+      for (int i = 0; i < quizstand.length(); i++) {
+    	if (quizstand.charAt(i) == '_') {
+    	  if (eingabe.equalsIgnoreCase(QUIZWORT.substring(i/2, i/2 + 1))) {
+    		  neuerQuizstand += eingabe;
+		  }
+		  else {
+			  neuerQuizstand += "_ ";
+		  }
+    	}
+    	else if (quizstand.charAt(i) == QUIZWORT.charAt(i/2)) {
+    		neuerQuizstand += quizstand.charAt(i);
+    	}
+      } 	  
+      if (neuerQuizstand.equalsIgnoreCase(QUIZWORT)) {
+    	  gewinnNachricht();
+      }
+      return neuerQuizstand;
+    }
 
-    static boolean raten(String eingabe, String ausgewaehltesWort) {
-    	for (int i = 0; i < ausgewaehltesWort.length(); i++) {
-			if (eingabe.equalsIgnoreCase(ausgewaehltesWort.substring(i, i + 1)))
+    static boolean raten(String eingabe) {
+    	for (int i = 0; i < QUIZWORT.length(); i++) {
+			if (eingabe.equalsIgnoreCase(QUIZWORT.substring(i, i + 1)))
 				return true;
 		}
 		return false;
@@ -118,7 +133,7 @@ public class Hangman {
       }
     }
 
-    static void willkommensNachricht(String ausgewaehltesWort) {
+    static void willkommensNachricht() {
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *");
@@ -127,7 +142,7 @@ public class Hangman {
         System.out.println("* * * * * * * * * * * * * * * * *");
         System.out.println("* * * * * * * * * * * * * * * * *\n");
         System.out.println("Bitte einen Buchstaben oder das zuerratene Wort eingeben!\n");
-        System.out.println(erstelleVerdecktesWort(ausgewaehltesWort) + "\n");
+        System.out.println(erstelleVerdecktesWort() + "\n");
     }
     
     static void trennNachricht() {
@@ -135,33 +150,34 @@ public class Hangman {
     	System.out.println("* * * * * * * * * * * * * * * * *\n");
     }
     
-    static void gewinnNachricht(String ausgewaehltesWort) {
+    static void gewinnNachricht() {
     	trennNachricht();
     	trennNachricht();
-    	System.out.println("Super!! Richtig erraten das Wort lautete: " + ausgewaehltesWort);
+    	System.out.println("Super!! Richtig erraten das Wort lautete: " + QUIZWORT);
     	trennNachricht();
     	trennNachricht();
+    	System.exit(0);
     }
     
     
     public static void main(String[] args) {
-      Random rnd = new Random();
-      String ausgewaehltesWort = QUIZWOERTER[rnd.nextInt(QUIZWOERTER.length)];
-      willkommensNachricht(ausgewaehltesWort);
+      willkommensNachricht();
       Scanner in = new Scanner(System.in);
       String eingabe = in.next();
-      String wortAufdecken = "";
-
+      System.out.println(QUIZWORT);
+      String quizstand = erstelleVerdecktesWort();
+      
       for (int anzahlVersuche = 0; anzahlVersuche < 7;) {
-        if (eingabe.equalsIgnoreCase(ausgewaehltesWort)) {
-      	  gewinnNachricht(ausgewaehltesWort);
+        if (eingabe.equalsIgnoreCase(QUIZWORT)) {
+      	  gewinnNachricht();
           in.close();
           System.exit(0);
-        } else if (eingabe.length() == 1 && raten(eingabe, ausgewaehltesWort) == true) {
+        } else if (eingabe.length() == 1 && raten(eingabe)) {
             trennNachricht();
             System.out.println("Der Buchstabe " + eingabe + " ist dabei.\n");
-            wortAufdecken = "";
-            System.out.println(aufdeckenVerdecktesWort(eingabe, ausgewaehltesWort));
+            quizstand = aufdeckenVerdecktesWort(eingabe, quizstand);
+            System.out.println(quizstand);
+            
             eingabe = in.next();
         }
         else {
