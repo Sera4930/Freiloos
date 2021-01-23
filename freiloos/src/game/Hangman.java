@@ -178,7 +178,7 @@ public class Hangman {
             System.out.println( lob + " Der Buchstabe " + eingabe + " ist dabei.\n");
             String neuerQuizstand = aufdeckenVerdecktesWort(eingabe);
             quizstand = neuerQuizstand;
-            quizstandNachricht();  
+            quizstandNachricht();
             eingabe = in.next().toLowerCase();
         } else {
           anzahlVersuche++;
@@ -190,12 +190,10 @@ public class Hangman {
           trennNachricht();
           hangmanFigur(anzahlVersuche);
           System.out.println("\nLeider falsch! Noch " + (7 - anzahlVersuche) + " Fehlversuche erlaubt. Die Eingabe " + eingabe + " war nicht dabei.  Naechster Vesuch:");
-          quizstandNachricht(); 
+          quizstandNachricht();
           eingabe = in.next().toLowerCase();
           }
         }
       }
     }
-
 }
-
