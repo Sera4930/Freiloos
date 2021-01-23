@@ -29,15 +29,13 @@ public class Hangman {
     	if (quizstand.substring(i, i + 1).equals("_")) {
     	  if  (eingabe.equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
     		  neuerQuizstand += eingabe;
-		  }
-		  else {
+		  } else {
 			  neuerQuizstand += "_";
 		  }
-    	}
-    	else if (quizstand.substring(i, i + 1).equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
+    	} else if (quizstand.substring(i, i + 1).equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
     		neuerQuizstand += quizstand.substring(i, i + 1);
     	}
-      } 	  
+      }	  
       if (neuerQuizstand.equalsIgnoreCase(QUIZWORT)) {
     	  gewinnNachricht();
       }
@@ -46,14 +44,15 @@ public class Hangman {
 
     static boolean raten(String eingabe) {
     	for (int i = 0; i < QUIZWORT.length(); i++) {
-			if (eingabe.equalsIgnoreCase(QUIZWORT.substring(i, i + 1)))
-				return true;
+			if (eingabe.equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
+			  return true;
+			}
 		}
 		return false;
 	}
 
     static void hangmanFigur(int auswahl) { //Quelle der Figur: https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c  
-        if (auswahl == 1) {        
+        if (auswahl == 1) {
           System.out.println("   ");
           System.out.println();
           System.out.println("+------+ ");
@@ -63,8 +62,7 @@ public class Hangman {
           System.out.println("|     ");
           System.out.println("|        ");
           System.out.println("|        ");
-        }
-        else if (auswahl == 2) {         
+        } else if (auswahl == 2) {  
           System.out.println("   ");
           System.out.println();
           System.out.println("+------+ ");
@@ -74,8 +72,7 @@ public class Hangman {
           System.out.println("|      ");
           System.out.println("|        ");
           System.out.println("|        ");
-        }
-        else if (auswahl == 3) {           
+        } else if (auswahl == 3) {
           System.out.println("   ");
           System.out.println();
           System.out.println("+------+ ");
@@ -85,8 +82,7 @@ public class Hangman {
           System.out.println("|      ");
           System.out.println("|        ");
           System.out.println("|        ");
-        }
-        else if (auswahl == 4) {          
+        } else if (auswahl == 4) {
           System.out.println("   ");
           System.out.println();
           System.out.println("+------+ ");
@@ -96,8 +92,7 @@ public class Hangman {
           System.out.println("|      ");
           System.out.println("|        ");
           System.out.println("|        ");
-        }
-        else if (auswahl == 5) {         
+        } else if (auswahl == 5) {
           System.out.println("   ");
           System.out.println();
           System.out.println("+------+ ");
@@ -107,8 +102,7 @@ public class Hangman {
           System.out.println("|      ");
           System.out.println("|        ");
           System.out.println("|        ");
-        }
-        else if (auswahl == 6) {          
+        } else if (auswahl == 6) {
           System.out.println("   ");
           System.out.println();
           System.out.println("+------+ ");
@@ -118,8 +112,7 @@ public class Hangman {
           System.out.println("|     /  ");
           System.out.println("|        ");
           System.out.println("|        ");
-        }
-        else if (auswahl == 7) {  
+        } else if (auswahl == 7) {
           System.out.println("GAME OVER!");
           System.out.println("   ");
           System.out.println();
@@ -172,7 +165,8 @@ public class Hangman {
       Scanner in = new Scanner(System.in);
       String eingabe = in.next().toLowerCase();
       String[] lobliste = { "Super!", "Nice.", "Sehr schoen.", "Weiter so!" };
-      String lob = lobliste[new Random().nextInt(lobliste.length)];
+      Random random = new Random();
+      String lob = lobliste[random.nextInt(lobliste.length)];
       
       for (int anzahlVersuche = 0; anzahlVersuche < 7;) {
         if (eingabe.equalsIgnoreCase(QUIZWORT)) {
@@ -186,18 +180,16 @@ public class Hangman {
             quizstand = neuerQuizstand;
             quizstandNachricht();  
             eingabe = in.next().toLowerCase();
-        }
-        else {
+        } else {
           anzahlVersuche++;
           if (anzahlVersuche == 7) {
             hangmanFigur(anzahlVersuche);
             in.close();
             System.exit(0);
-          }
-          else {
+          } else {
           trennNachricht();
           hangmanFigur(anzahlVersuche);
-          System.out.println("\nLeider falsch! Die Eingabe " + eingabe + " war nicht dabei.  Naechster Vesuch:");
+          System.out.println("\nLeider falsch! Noch " + (7 - anzahlVersuche) + " Fehlversuche erlaubt. Die Eingabe " + eingabe + " war nicht dabei.  Naechster Vesuch:");
           quizstandNachricht(); 
           eingabe = in.next().toLowerCase();
           }
