@@ -11,26 +11,26 @@ public class Hangman {
 
     
     public static String erstelleVerdecktesWort() {
-		String unterstriche = "";
+		String hash = "";
 		for (int i = 0; i < QUIZWORT.length(); i++) {
-			unterstriche = unterstriche + "_ ";
+			hash += "#";
 		}
-		return unterstriche;
+		return hash;
 	}
   
     public static String aufdeckenVerdecktesWort(String eingabe, String quizstand) {
       String neuerQuizstand = "";
-      for (int i = 0; i < quizstand.length(); i++) {
-    	if (quizstand.charAt(i) == '_') {
-    	  if (eingabe.equalsIgnoreCase(QUIZWORT.substring(i/2, i/2 + 1))) {
+      for (int i = 0; i < QUIZWORT.length(); i++) {
+    	if (quizstand.substring(i, i + 1).equals("#")) {
+    	  if  (eingabe.equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
     		  neuerQuizstand += eingabe;
 		  }
 		  else {
-			  neuerQuizstand += "_ ";
+			  neuerQuizstand += "#";
 		  }
     	}
-    	else if (quizstand.charAt(i) == QUIZWORT.charAt(i/2)) {
-    		neuerQuizstand += quizstand.charAt(i);
+    	else if (quizstand.substring(i, i + 1).equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
+    		neuerQuizstand += quizstand.substring(i, i + 1);
     	}
       } 	  
       if (neuerQuizstand.equalsIgnoreCase(QUIZWORT)) {
@@ -154,11 +154,10 @@ public class Hangman {
     	System.exit(0);
     }
     
-    
     public static void main(String[] args) {
       willkommensNachricht();
       Scanner in = new Scanner(System.in);
-      String eingabe = in.next();
+      String eingabe = in.next().toLowerCase();
       System.out.println(QUIZWORT);
       String quizstand = erstelleVerdecktesWort();
       
@@ -170,10 +169,10 @@ public class Hangman {
         } else if (eingabe.length() == 1 && raten(eingabe)) {
             trennNachricht();
             System.out.println("Der Buchstabe " + eingabe + " ist dabei.\n");
-            quizstand = aufdeckenVerdecktesWort(eingabe, quizstand);
-            System.out.println(quizstand);
-            
-            eingabe = in.next();
+            String neuerQuizstand = aufdeckenVerdecktesWort(eingabe, quizstand);
+            quizstand = neuerQuizstand;
+            System.out.println(quizstand);  
+            eingabe = in.next().toLowerCase();
         }
         else {
           anzahlVersuche++;
@@ -186,7 +185,8 @@ public class Hangman {
           trennNachricht();
           hangmanFigur(anzahlVersuche);
           System.out.println("\nLeider falsch! Die Eingabe " + eingabe + " war falsch.  Naechster Vesuch:");
-          eingabe = in.next();
+          System.out.println(quizstand); 
+          eingabe = in.next().toLowerCase();
           }
         }
       }
