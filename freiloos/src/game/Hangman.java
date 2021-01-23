@@ -3,7 +3,12 @@ package game;
 import java.util.Scanner;
 import java.util.Random;
 
-// Hangman Projekt von Dawid Voronov und Alexander Girin || AI1001
+/**
+* Our project Hangman is based on the well known game Hangman.
+* you need to guess the hidden word that is shown upon initialization of the code to win.
+* @version 1.0 Build Jan 23, 2021.
+* @author Dawid Voronov, Alexander Girin || AI1001
+*/
 
 public class Hangman {
     private static final String[] QUIZWOERTER = { "Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet", "Netzpolitik", "Telekommunikationsgesetz", "Lokomotive"};
