@@ -1,28 +1,32 @@
-package game;
-
-import java.util.Scanner;
-import java.util.Random;
-
 /**
 * Our project Hangman is based on the well known game Hangman.
 * you need to guess the hidden word that is shown upon initialization of the code to win.
 * @version 1.0 Build Jan 23, 2021.
 * @author Dawid Voronov, Alexander Girin || AI1001
 */
+package game;
+
+import java.util.Scanner;
+import java.util.Random;
+
+
 
 public class Hangman {
-    private static final String[] QUIZWOERTER = { "Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet", "Netzpolitik", "Telekommunikationsgesetz", "Lokomotive"};
+	/**
+    * Hauptprogramm.
+	*/
+    private static final String[] QUIZWOERTER = {"Tokio", "Hamburg", "Kryptographie", "Ninja", "Vegan", "Darmstadt", "Darknet", "Netzpolitik", "Telekommunikationsgesetz", "Lokomotive"};
     private static final String QUIZWORT = QUIZWOERTER[new Random().nextInt(QUIZWOERTER.length)];
-    static String quizstand = erstelleVerdecktesWort();
-    
+    private static String quizstand = erstelleVerdecktesWort();
+
     public static String erstelleVerdecktesWort() {
-		String unterstriche = "";
-		for (int i = 0; i < QUIZWORT.length(); i++) {
-			unterstriche += "_";
-		}
-		return unterstriche;
+      String unterstriche = "";
+        for (int i = 0; i < QUIZWORT.length(); i++) {
+          unterstriche += "_";
+        }
+        return unterstriche;
 	}
-  
+
     public static String aufdeckenVerdecktesWort(String eingabe) {
       String neuerQuizstand = "";
       for (int i = 0; i < QUIZWORT.length(); i++) {
@@ -35,7 +39,7 @@ public class Hangman {
     	} else if (quizstand.substring(i, i + 1).equalsIgnoreCase(QUIZWORT.substring(i, i + 1))) {
     		neuerQuizstand += quizstand.substring(i, i + 1);
     	}
-      }	  
+      }
       if (neuerQuizstand.equalsIgnoreCase(QUIZWORT)) {
     	  gewinnNachricht();
       }
@@ -137,12 +141,12 @@ public class Hangman {
         System.out.println("Bitte einen Buchstaben oder das zuerratene Wort eingeben!\n");
         quizstandNachricht();
     }
-    
+
     static void trennNachricht() {
     	System.out.println("\n* * * * * * * * * * * * * * * * *");
     	System.out.println("* * * * * * * * * * * * * * * * *\n");
     }
-    
+
     static void gewinnNachricht() {
     	trennNachricht();
     	trennNachricht();
@@ -157,9 +161,9 @@ public class Hangman {
     	for (int i = 0; i < quizstand.length(); i++) {
     	  quizstandMitLeerzeichen += quizstand.charAt(i) + " ";
         }
-    	System.out.println(quizstandMitLeerzeichen +"\n");
+    	System.out.println(quizstandMitLeerzeichen + "\n");
     }
-    
+
     public static void main(String[] args) {
       willkommensNachricht();
       Scanner in = new Scanner(System.in);
@@ -167,7 +171,7 @@ public class Hangman {
       String[] lobliste = { "Super!", "Nice.", "Sehr schoen.", "Weiter so!" };
       Random random = new Random();
       String lob = lobliste[random.nextInt(lobliste.length)];
-      
+
       for (int anzahlVersuche = 0; anzahlVersuche < 7;) {
         if (eingabe.equalsIgnoreCase(QUIZWORT)) {
       	  gewinnNachricht();
