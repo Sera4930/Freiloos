@@ -1,3 +1,15 @@
+## Meeting Protokoll KW03_2
+
+### Was haben wir die letzte Woche erreichen können?
+Mit dem Spiel sind wir fertig geworden, sowie auch mit dem Testen. Den Linter haben wir unseren Anforderungen angepasst.
+
+### Was machen wir als nächstes?
+Die Sprint-Retrospektive findet nach diesem Meeting direkt statt. Und am 27.01.2021 findet der Sprint-Review statt.
+
+### Was für Probleme sind aufgetreten?
+Es war etwas schwierig beim aufdecken, der einzelnen Buchstaben die Eingabe, der vorherigen Runden immer "mitzunehmen". Ansonsten gab es keine Schwierigkeiten.
+
+
 ## Meeting Protokoll KW03
 
 ### Was haben wir die letzte Woche erreichen können?
